@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Task</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 600px;
+            margin: 60px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.1);
+            padding: 25px 35px;
+        }
+        h1 { text-align: center; color: #2c3e50; }
+        label { font-weight: bold; }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover { background: #219150; }
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            color: white;
+            background: #95a5a6;
+            padding: 8px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+        a:hover { background: #7f8c8d; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Task</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label>Title:</label>
+            <input type="text" name="title" value="{{ task.title }}" required>
+
+            <label>Description:</label>
+            <textarea name="description">{{ task.description }}</textarea>
+
+            <label>
+                <input type="checkbox" name="completed" {% if task.completed %}checked{% endif %}>
+                Completed
+            </label>
+
+            <button type="submit">Update</button>
+        </form>
+        <a href="{% url 'task_list' %}">Back</a>
+    </div>
+</body>
+</html>
